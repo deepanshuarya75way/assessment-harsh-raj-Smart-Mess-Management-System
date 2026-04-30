@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 
 // DB connect
 mongoose
-  .connect(MONGO_URI, { })
+  .connect(MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("Mongo connection error:", err.message));
 
@@ -37,6 +37,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Server error" });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Smart Mess backend listening on port ${PORT}`);
+});
+
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(`Port ${PORT} is already in use. Stop the existing server or change PORT.`);
+  } else {
+    console.error("Server error:", err);
+  }
+  process.exit(1);
 });

@@ -17,11 +17,13 @@ This is a small full‑stack project for your academic demo.
 ```bash
 cd backend
 npm install
-cp .env.example .env   # on Windows you can copy the file manually
+copy .env.example .env   # Windows PowerShell
 npm start
 ```
 
 The API will run on `http://localhost:5000`.
+
+If you do not want to use MongoDB Atlas, install MongoDB locally and keep the default local URI in `.env`.
 
 ### 2. Frontend
 
